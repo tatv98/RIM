@@ -1,17 +1,16 @@
 package vn.icar.rim.device.serial;
 
-import android.bluetooth.BluetoothDevice;
-import android.content.Context;
-import android.hardware.usb.UsbDevice;
-import android.os.Parcelable;
-
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-
 import vn.icar.rim.device.serial.providers.BluetoothMasterProvider;
 import vn.icar.rim.device.serial.providers.BluetoothSlaveProvider;
 import vn.icar.rim.device.serial.providers.SerialProvider;
 import vn.icar.rim.device.serial.providers.USBProvider;
+
+import android.bluetooth.BluetoothDevice;
+import android.content.Context;
+import android.hardware.usb.UsbDevice;
+import android.os.Parcelable;
 
 @EBean
 public class SerialProviderFactory {

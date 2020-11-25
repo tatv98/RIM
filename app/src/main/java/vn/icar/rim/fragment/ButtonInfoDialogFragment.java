@@ -1,13 +1,10 @@
 package vn.icar.rim.fragment;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+
+import lombok.val;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -18,11 +15,6 @@ import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.UiThread.Propagation;
 import org.androidannotations.annotations.ViewById;
-
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
 import vn.icar.rim.R;
 import vn.icar.rim.RemoteInputsMgr;
 import vn.icar.rim.activity.MainActivity;
@@ -31,6 +23,17 @@ import vn.icar.rim.device.entitiy.ActionInfo;
 import vn.icar.rim.device.entitiy.ActionInfo.EventType;
 import vn.icar.rim.device.entitiy.ButtonInfo;
 import vn.icar.rim.view.ActionInfoView;
+import vn.icar.rim.view.ActionInfoView_;
+
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.FrameLayout.LayoutParams;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 @EFragment(R.layout.dialog_button_settings)
 public class ButtonInfoDialogFragment extends DialogFragment {
@@ -39,8 +42,7 @@ public class ButtonInfoDialogFragment extends DialogFragment {
 
     @FragmentArg long buttonId = -1;
 
-    @Bean
-    DBFactory dbFactory;
+    @Bean DBFactory dbFactory;
 
     @ViewById(R.id.buttonValue) TextView buttonValue;
     @ViewById(R.id.buttonError) Spinner buttonError;
@@ -86,20 +88,16 @@ public class ButtonInfoDialogFragment extends DialogFragment {
 
         if (button.getActions() == null) {
             actions = new LinkedList<ActionInfo>();
+            actions.add(new ActionInfo(EventType.CLICK));
             actions.add(new ActionInfo(EventType.HOLD));
         } else {
             actions = new LinkedList<ActionInfo>(button.getActions());
         }
 
         for (ActionInfo action : actions) {
-//            ActionInfoView view = ActionInfoView.build(getActivity());
-//            buttonInfoCnt.addView(view, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-//            view.setActionInfo(action);
-
-            ActionInfoView view = new ActionInfoView(getActivity());
-            buttonInfoCnt.addView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            ActionInfoView view = ActionInfoView_.build(getActivity());
+            buttonInfoCnt.addView(view, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             view.setActionInfo(action);
-
         }
     }
 

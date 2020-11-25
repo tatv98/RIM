@@ -3,9 +3,12 @@ package vn.icar.rim.device.entitiy;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -45,7 +48,7 @@ public class AppInfo implements Serializable {
             try {
                 bitmap = ((BitmapDrawable) ((StateListDrawable) drawable).getCurrent()).getBitmap();
             } catch (Exception e) {
-                bitmap = ((BitmapDrawable) drawable).getBitmap();
+                bitmap = getBitmapFromDrawable(drawable);
             }
             sDrawable = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(bitmap, 24, 24, true));
         }
@@ -60,12 +63,19 @@ public class AppInfo implements Serializable {
             try {
                 bitmap = ((BitmapDrawable) ((StateListDrawable) drawable).getCurrent()).getBitmap();
             } catch (Exception e) {
-                bitmap = ((BitmapDrawable) drawable).getBitmap();
+                bitmap = getBitmapFromDrawable(drawable);
             }
             bDrawable = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(bitmap, 56, 56, true));
         }
 
         return bDrawable;
     }
-
+    @NonNull
+    static private Bitmap getBitmapFromDrawable(@NonNull Drawable drawable) {
+        final Bitmap bmp = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bmp);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bmp;
+    }
 }

@@ -1,5 +1,8 @@
 package vn.icar.rim.device.serial.providers;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.content.Context;
 import android.hardware.usb.UsbDevice;
 import android.util.Log;
@@ -7,9 +10,6 @@ import android.util.Log;
 import com.physicaloid.lib.Physicaloid;
 import com.physicaloid.lib.usb.driver.uart.ReadLisener;
 import com.physicaloid.lib.usb.driver.uart.UartConfig;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class USBProvider extends SerialProvider implements ReadLisener {
 

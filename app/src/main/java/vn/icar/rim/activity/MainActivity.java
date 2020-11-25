@@ -29,7 +29,7 @@ import vn.icar.rim.R;
 import vn.icar.rim.RemoteInputsMgr;
 import vn.icar.rim.adapter.ButtonInfoAdapter;
 import vn.icar.rim.device.DBFactory;
-import vn.icar.rim.fragment.ButtonInfoDialogFragment;
+import vn.icar.rim.fragment.ButtonInfoDialogFragment_;
 
 @EActivity(R.layout.main)
 public class MainActivity extends ListActivity implements DismissCallbacks {
@@ -38,14 +38,11 @@ public class MainActivity extends ListActivity implements DismissCallbacks {
 
     public static final String ACTION_DATA_REFRESH = "vn.icar.rim.action.ACTION_DATA_REFRESH";
 
-    @App
-    RemoteInputsMgr app;
+    @App RemoteInputsMgr app;
 
-    @Bean
-    DBFactory dbFactory;
+    @Bean DBFactory dbFactory;
 
-    @Bean
-    ButtonInfoAdapter buttonInfoAdapter;
+    @Bean ButtonInfoAdapter buttonInfoAdapter;
 
     @ViewById(android.R.id.icon) ImageView loadingIcon;
 
@@ -92,8 +89,8 @@ public class MainActivity extends ListActivity implements DismissCallbacks {
             public boolean onMenuItemClick(MenuItem item) {
 
                 FragmentManager fm = getFragmentManager();
-                if (((FragmentManager) fm).findFragmentByTag("dialog") == null) {
-                    new ButtonInfoDialogFragment().show(fm, "dialog");
+                if (fm.findFragmentByTag("dialog") == null) {
+                    new ButtonInfoDialogFragment_().show(fm, "dialog");
                 }
 
                 return false;
@@ -107,9 +104,7 @@ public class MainActivity extends ListActivity implements DismissCallbacks {
 
             public boolean onMenuItemClick(MenuItem item) {
 
-//                PreferencesActivity.intent(MainActivity.this).start();
-                Intent intent = new Intent(MainActivity.this, PreferencesActivity.class);
-                startActivity(intent);
+                PreferencesActivity_.intent(MainActivity.this).start();
                 return false;
             }
         });
@@ -122,9 +117,7 @@ public class MainActivity extends ListActivity implements DismissCallbacks {
 
         FragmentManager fm = getFragmentManager();
         if (fm.findFragmentByTag("dialog") == null) {
-//            ButtonInfoDialogFragment.builder().arg("buttonId", id).build().show(fm, "dialog");
-            ButtonInfoDialogFragment buttonInfoDialogFragment = new ButtonInfoDialogFragment();
-
+            ButtonInfoDialogFragment_.builder().arg("buttonId", id).build().show(fm, "dialog");
         }
     }
 

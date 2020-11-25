@@ -19,9 +19,11 @@ import vn.icar.rim.RemoteInputsMgr;
 import vn.icar.rim.device.actions.ActionExecutorFactory;
 import vn.icar.rim.device.actions.CommandType;
 import vn.icar.rim.device.actions.executors.ActionExecutor;
-import vn.icar.rim.device.actions.executors.MediaExecutor;
-import vn.icar.rim.device.actions.executors.VolumeExecutor;
+import vn.icar.rim.device.actions.executors.ActionExecutor.ActionType;
+import vn.icar.rim.device.actions.executors.MediaExecutor.MediaAction;
+import vn.icar.rim.device.actions.executors.VolumeExecutor.VolumeAction;
 import vn.icar.rim.device.entitiy.ActionInfo;
+import vn.icar.rim.device.entitiy.ActionInfo.EventType;
 import vn.icar.rim.device.entitiy.AppInfo;
 import vn.icar.rim.device.entitiy.ButtonInfo;
 import vn.icar.rim.device.entitiy.TaskInfo;
@@ -29,11 +31,9 @@ import vn.icar.rim.device.entitiy.TaskInfo;
 @EViewGroup(R.layout.listview_item_button_info)
 public class ButtonInfoView extends LinearLayout {
 
-    @App
-    RemoteInputsMgr app;
+    @App RemoteInputsMgr app;
 
-    @Bean
-    ActionExecutorFactory actionFactory;
+    @Bean ActionExecutorFactory actionFactory;
 
     @ViewById(R.id.buttonInfoValue) TextView valueView;
     @ViewById(R.id.buttonInfoClickAction) TextView clickView;
@@ -85,7 +85,7 @@ public class ButtonInfoView extends LinearLayout {
 
                     ActionExecutor executor = actionFactory.getExecutor(actionInfo.getActionType());
                     if (executor != null) {
-                        if (actionInfo.getEvent() == ActionInfo.EventType.HOLD) {
+                        if (actionInfo.getEvent() == EventType.HOLD) {
                             executor.execute(prevState = (prevState == CommandType.HOLD ? CommandType.RELEASE : CommandType.HOLD), actionInfo.getAction());
                         } else {
                             executor.execute(CommandType.CLICK, actionInfo.getAction());
@@ -97,16 +97,16 @@ public class ButtonInfoView extends LinearLayout {
             if (actionInfo.getAction() != null && !actionInfo.getAction().isEmpty()) {
                 switch (actionInfo.getActionType()) {
                     case VOLUME:
-                        String volumeLabel = getResources().getStringArray(R.array.action_types)[ActionExecutor.ActionType.VOLUME.ordinal()];
+                        String volumeLabel = getResources().getStringArray(R.array.action_types)[ActionType.VOLUME.ordinal()];
                         volumeLabel += ": ";
-                        volumeLabel += getResources().getStringArray(R.array.volume_actions)[Enum.valueOf(VolumeExecutor.VolumeAction.class, actionInfo.getAction()).ordinal()];
+                        volumeLabel += getResources().getStringArray(R.array.volume_actions)[Enum.valueOf(VolumeAction.class, actionInfo.getAction()).ordinal()];
                         textView.setText(volumeLabel);
                         textView.setOnClickListener(listener);
                         break;
                     case MEDIA:
-                        String mediaLabel = getResources().getStringArray(R.array.action_types)[ActionExecutor.ActionType.MEDIA.ordinal()];
+                        String mediaLabel = getResources().getStringArray(R.array.action_types)[ActionType.MEDIA.ordinal()];
                         mediaLabel += ": ";
-                        mediaLabel += getResources().getStringArray(R.array.media_actions)[Enum.valueOf(MediaExecutor.MediaAction.class, actionInfo.getAction()).ordinal()];
+                        mediaLabel += getResources().getStringArray(R.array.media_actions)[Enum.valueOf(MediaAction.class, actionInfo.getAction()).ordinal()];
                         textView.setText(mediaLabel);
                         textView.setOnClickListener(listener);
                         break;

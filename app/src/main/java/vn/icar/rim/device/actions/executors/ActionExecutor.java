@@ -1,9 +1,8 @@
 package vn.icar.rim.device.actions.executors;
 
+import vn.icar.rim.device.actions.CommandType;
 
 import android.content.Context;
-
-import vn.icar.rim.device.actions.CommandType;
 
 public abstract class ActionExecutor {
 

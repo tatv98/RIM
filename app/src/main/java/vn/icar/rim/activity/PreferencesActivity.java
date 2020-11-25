@@ -30,7 +30,7 @@ import vn.icar.rim.RemoteInputsMgr;
 public class PreferencesActivity extends PreferenceActivity {
 
     @App
-    RemoteInputsMgr app;
+    static RemoteInputsMgr app;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,7 @@ public class PreferencesActivity extends PreferenceActivity {
         getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefsFragment()).commit();
     }
 
-    @SuppressLint("ValidFragment")
-    public class PrefsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
+    public static class PrefsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
         private SharedPreferences prefs;
 

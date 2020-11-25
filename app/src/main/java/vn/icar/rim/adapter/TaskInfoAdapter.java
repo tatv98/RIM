@@ -1,5 +1,12 @@
 package vn.icar.rim.adapter;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.EBean;
+import vn.icar.rim.R;
+import vn.icar.rim.RemoteInputsMgr;
+import vn.icar.rim.device.entitiy.TaskInfo;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,19 +17,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.EBean;
-
-import vn.icar.rim.R;
-import vn.icar.rim.RemoteInputsMgr;
-import vn.icar.rim.device.entitiy.TaskInfo;
-
 @EBean
 public class TaskInfoAdapter extends ArrayAdapter<TaskInfo> {
 
-    @App
-    RemoteInputsMgr app;
+    @App RemoteInputsMgr app;
 
     private Drawable sDrawable;
     private Drawable bDrawable;

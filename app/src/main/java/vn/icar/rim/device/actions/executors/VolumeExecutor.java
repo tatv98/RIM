@@ -1,14 +1,14 @@
 package vn.icar.rim.device.actions.executors;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.media.AudioManager;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 import vn.icar.rim.device.actions.CommandType;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.media.AudioManager;
 
 public class VolumeExecutor extends ActionExecutor {
 

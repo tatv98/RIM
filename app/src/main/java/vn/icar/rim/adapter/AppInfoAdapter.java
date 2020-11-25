@@ -1,5 +1,11 @@
 package vn.icar.rim.adapter;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.EBean;
+import vn.icar.rim.RemoteInputsMgr;
+import vn.icar.rim.device.entitiy.AppInfo;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
@@ -7,18 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.EBean;
-
-import vn.icar.rim.RemoteInputsMgr;
-import vn.icar.rim.device.entitiy.AppInfo;
-
 @EBean
 public class AppInfoAdapter extends ArrayAdapter<AppInfo> {
 
-    @App
-    RemoteInputsMgr app;
+    @App RemoteInputsMgr app;
 
     public AppInfoAdapter(Context context) {
 

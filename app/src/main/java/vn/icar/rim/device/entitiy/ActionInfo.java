@@ -1,11 +1,10 @@
 package vn.icar.rim.device.entitiy;
 
+import vn.icar.rim.device.actions.executors.ActionExecutor.ActionType;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import vn.icar.rim.device.actions.executors.ActionExecutor;
-import vn.icar.rim.device.actions.executors.ActionExecutor.ActionType;
 
 @DatabaseTable(tableName = "action")
 public class ActionInfo {
@@ -19,7 +18,7 @@ public class ActionInfo {
     @DatabaseField(generatedId = true) private long id;
     @DatabaseField(foreign = true, columnDefinition = "button_id bigint references button(id) on delete cascade") private ButtonInfo button;
     @DatabaseField(canBeNull = false, dataType = DataType.ENUM_INTEGER) private EventType event;
-    @DatabaseField(canBeNull = false, dataType = DataType.ENUM_INTEGER) private ActionExecutor.ActionType actionType;
+    @DatabaseField(canBeNull = false, dataType = DataType.ENUM_INTEGER) private ActionType actionType;
     @DatabaseField private String action;
 
     public ActionInfo() {

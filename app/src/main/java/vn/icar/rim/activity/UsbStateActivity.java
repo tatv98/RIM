@@ -1,5 +1,12 @@
 package vn.icar.rim.activity;
 
+import lombok.val;
+
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.SystemService;
+import vn.icar.rim.RemoteInputsMgr;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -9,17 +16,10 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.SystemService;
-
-import vn.icar.rim.RemoteInputsMgr;
-
 @EActivity
 public class UsbStateActivity extends Activity {
 
-    @App
-    RemoteInputsMgr app;
+    @App RemoteInputsMgr app;
 
     @SystemService UsbManager usbManager;
 
@@ -43,10 +43,8 @@ public class UsbStateActivity extends Activity {
 
             if (device.getDeviceId() == Integer.valueOf(prefs.getString("device_id", "-1"))) {
                 if (!usbManager.hasPermission(device)) {
-//                    usbManager.requestPermission(device, PendingIntent.getActivity(this, 0, UsbStateActivity.intent(this)
-//                            .flags(Intent.FLAG_ACTIVITY_NEW_TASK).get(),
-//                            PendingIntent.FLAG_UPDATE_CURRENT));
-                    usbManager.requestPermission(device, PendingIntent.getActivity(this, 0, getIntent().setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                    usbManager.requestPermission(device, PendingIntent.getActivity(this, 0, UsbStateActivity_.intent(this)
+                            .flags(Intent.FLAG_ACTIVITY_NEW_TASK).get(),
                             PendingIntent.FLAG_UPDATE_CURRENT));
                 } else {
                     app.refreshConnection();

@@ -1,5 +1,25 @@
 package vn.icar.rim.service;
 
+import lombok.val;
+
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EService;
+import org.androidannotations.annotations.Receiver;
+import vn.icar.rim.R;
+import vn.icar.rim.RemoteInputsMgr;
+import vn.icar.rim.activity.MainActivity_;
+import vn.icar.rim.device.DBFactory;
+import vn.icar.rim.device.actions.ActionExecutorFactory;
+import vn.icar.rim.device.actions.CommandType;
+import vn.icar.rim.device.actions.executors.ActionExecutor;
+import vn.icar.rim.device.entitiy.ActionInfo;
+import vn.icar.rim.device.entitiy.ActionInfo.EventType;
+import vn.icar.rim.device.entitiy.ButtonInfo;
+import vn.icar.rim.device.serial.ISerialDataReciever;
+import vn.icar.rim.device.serial.SerialProviderFactory;
+import vn.icar.rim.device.serial.providers.SerialProvider;
+
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -14,36 +34,14 @@ import android.os.Parcelable;
 
 import com.j256.ormlite.stmt.QueryBuilder;
 
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EService;
-import org.androidannotations.annotations.Receiver;
-
-import vn.icar.rim.R;
-import vn.icar.rim.RemoteInputsMgr;
-import vn.icar.rim.activity.MainActivity;
-import vn.icar.rim.device.DBFactory;
-import vn.icar.rim.device.actions.ActionExecutorFactory;
-import vn.icar.rim.device.actions.CommandType;
-import vn.icar.rim.device.actions.executors.ActionExecutor;
-import vn.icar.rim.device.entitiy.ActionInfo;
-import vn.icar.rim.device.entitiy.ButtonInfo;
-import vn.icar.rim.device.serial.ISerialDataReciever;
-import vn.icar.rim.device.serial.SerialProviderFactory;
-import vn.icar.rim.device.serial.providers.SerialProvider;
-
 @EService
 public class SerialListenerService extends Service implements ISerialDataReciever {
 
-    @App
-    RemoteInputsMgr app;
+    @App RemoteInputsMgr app;
 
-    @Bean
-    SerialProviderFactory providerFactory;
-    @Bean
-    ActionExecutorFactory actionFactory;
-    @Bean
-    DBFactory dbFactory;
+    @Bean SerialProviderFactory providerFactory;
+    @Bean ActionExecutorFactory actionFactory;
+    @Bean DBFactory dbFactory;
 
     private boolean setupMode;
 
@@ -65,21 +63,6 @@ public class SerialListenerService extends Service implements ISerialDataRecieve
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-//        startForeground(1, new Notification.Builder(this)
-//                .setAutoCancel(false)
-//                .setOngoing(true)
-//                .setPriority(-1)
-//                .setSmallIcon(R.drawable.ic_launcher)
-//                .setContentTitle(getResources().getString(R.string.app_name))
-//                .setContentIntent(PendingIntent.getActivity(this, 0,
-//                        MainActivity.intent(this).action(Intent.ACTION_MAIN).get(),
-//                        PendingIntent.FLAG_UPDATE_CURRENT))
-//                .build());
-//
-//        if (intent.hasExtra(RemoteInputsMgr.EXTRA_DEVICE)) {
-//            onReconnectAction(intent);
-//        }
-
         startForeground(1, new Notification.Builder(this)
                 .setAutoCancel(false)
                 .setOngoing(true)
@@ -87,7 +70,7 @@ public class SerialListenerService extends Service implements ISerialDataRecieve
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentIntent(PendingIntent.getActivity(this, 0,
-                        new Intent(this, MainActivity.class).setAction(Intent.ACTION_MAIN),
+                        MainActivity_.intent(this).action(Intent.ACTION_MAIN).get(),
                         PendingIntent.FLAG_UPDATE_CURRENT))
                 .build());
 
@@ -194,11 +177,11 @@ public class SerialListenerService extends Service implements ISerialDataRecieve
 
                 switch (cmd) {
                     case CLICK:
-                        aBuilder.where().eq("event", ActionInfo.EventType.CLICK);
+                        aBuilder.where().eq("event", EventType.CLICK);
                         break;
                     case HOLD:
                     case RELEASE:
-                        aBuilder.where().eq("event", ActionInfo.EventType.HOLD);
+                        aBuilder.where().eq("event", EventType.HOLD);
                         break;
                 }
 

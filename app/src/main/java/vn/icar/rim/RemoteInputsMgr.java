@@ -1,5 +1,17 @@
 package vn.icar.rim;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import lombok.val;
+
+import org.androidannotations.annotations.EApplication;
+import org.androidannotations.annotations.SystemService;
+import vn.icar.rim.activity.UsbStateActivity_;
+import vn.icar.rim.device.entitiy.AppInfo;
+import vn.icar.rim.device.entitiy.TaskInfo;
+import vn.icar.rim.service.SerialListenerService_;
+
 import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -12,17 +24,6 @@ import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-
-import org.androidannotations.annotations.EApplication;
-import org.androidannotations.annotations.SystemService;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import vn.icar.rim.activity.UsbStateActivity;
-import vn.icar.rim.device.entitiy.AppInfo;
-import vn.icar.rim.device.entitiy.TaskInfo;
-import vn.icar.rim.service.SerialListenerService;
 
 @EApplication
 public class RemoteInputsMgr extends Application {
@@ -52,18 +53,12 @@ public class RemoteInputsMgr extends Application {
 
         super.onCreate();
 
-//        SerialListenerService.intent(this)
-//                .extra(EXTRA_DEVICE, getDevice())
-//                .extra(EXTRA_MODE, getConnectionMode())
-//                .extra(EXTRA_BAUDRATE, getBaudrate())
-//                .start();
+        SerialListenerService_.intent(this)
+                .extra(EXTRA_DEVICE, getDevice())
+                .extra(EXTRA_MODE, getConnectionMode())
+                .extra(EXTRA_BAUDRATE, getBaudrate())
+                .start();
 
-        Intent intent = new Intent(this, SerialListenerService.class)
-                .putExtra(EXTRA_DEVICE, getDevice())
-                .putExtra(EXTRA_MODE, getConnectionMode())
-                .putExtra(EXTRA_BAUDRATE, getBaudrate())
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startService(intent);
     }
 
     public List<AppInfo> getPackages() {
@@ -164,14 +159,10 @@ public class RemoteInputsMgr extends Application {
         for (UsbDevice device : usbManager.getDeviceList().values()) {
             if (device.getDeviceId() == deviceId) {
                 if (!usbManager.hasPermission(device)) {
-//                    UsbStateActivity.intent(context)
-//                            .extra(UsbManager.EXTRA_DEVICE, device)
-//                            .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                            .start();
-                    Intent intent = new Intent(this, UsbStateActivity.class)
-                            .putExtra(UsbManager.EXTRA_DEVICE, device)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    UsbStateActivity_.intent(context)
+                            .extra(UsbManager.EXTRA_DEVICE, device)
+                            .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .start();
                     return null;
                 }
                 return device;

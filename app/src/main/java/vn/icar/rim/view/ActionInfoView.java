@@ -1,5 +1,20 @@
 package vn.icar.rim.view;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+import vn.icar.rim.R;
+import vn.icar.rim.adapter.AppInfoAdapter;
+import vn.icar.rim.adapter.TaskInfoAdapter;
+import vn.icar.rim.device.actions.executors.ActionExecutor.ActionType;
+import vn.icar.rim.device.actions.executors.MediaExecutor.MediaAction;
+import vn.icar.rim.device.actions.executors.VolumeExecutor.VolumeAction;
+import vn.icar.rim.device.entitiy.ActionInfo;
+import vn.icar.rim.device.entitiy.AppInfo;
+import vn.icar.rim.device.entitiy.TaskInfo;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -8,22 +23,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.ViewById;
-
-import vn.icar.rim.R;
-import vn.icar.rim.adapter.AppInfoAdapter;
-import vn.icar.rim.adapter.TaskInfoAdapter;
-import vn.icar.rim.device.actions.executors.ActionExecutor.ActionType;
-import vn.icar.rim.device.actions.executors.MediaExecutor;
-import vn.icar.rim.device.actions.executors.VolumeExecutor;
-import vn.icar.rim.device.entitiy.ActionInfo;
-import vn.icar.rim.device.entitiy.AppInfo;
-import vn.icar.rim.device.entitiy.TaskInfo;
 
 @EViewGroup(R.layout.listview_item_action_info)
 public class ActionInfoView extends LinearLayout {
@@ -37,10 +36,8 @@ public class ActionInfoView extends LinearLayout {
     private ArrayAdapter<String> volumeAdapter;
     private ArrayAdapter<String> mediaAdapter;
 
-    @Bean
-    AppInfoAdapter appAdapter;
-    @Bean
-    TaskInfoAdapter taskAdapter;
+    @Bean AppInfoAdapter appAdapter;
+    @Bean TaskInfoAdapter taskAdapter;
 
     public ActionInfoView(Context context) {
 
@@ -93,10 +90,10 @@ public class ActionInfoView extends LinearLayout {
 
                 switch (entity.getActionType()) {
                     case VOLUME:
-                        entity.setAction(VolumeExecutor.VolumeAction.values()[pos].name());
+                        entity.setAction(VolumeAction.values()[pos].name());
                         break;
                     case MEDIA:
-                        entity.setAction(MediaExecutor.MediaAction.values()[pos].name());
+                        entity.setAction(MediaAction.values()[pos].name());
                         break;
                     case APP:
                         entity.setAction(((AppInfo) valueView.getItemAtPosition(pos)).getPackageInfo().packageName);
@@ -177,10 +174,10 @@ public class ActionInfoView extends LinearLayout {
         if (entity.getAction() != null && !entity.getAction().isEmpty()) {
             switch (entity.getActionType()) {
                 case VOLUME:
-                    valueView.setSelection(Enum.valueOf(VolumeExecutor.VolumeAction.class, entity.getAction()).ordinal());
+                    valueView.setSelection(Enum.valueOf(VolumeAction.class, entity.getAction()).ordinal());
                     break;
                 case MEDIA:
-                    valueView.setSelection(Enum.valueOf(MediaExecutor.MediaAction.class, entity.getAction()).ordinal());
+                    valueView.setSelection(Enum.valueOf(MediaAction.class, entity.getAction()).ordinal());
                     break;
                 case APP:
                     valueView.setSelection(0);

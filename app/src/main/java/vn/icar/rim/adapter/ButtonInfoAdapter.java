@@ -1,21 +1,21 @@
 package vn.icar.rim.adapter;
 
-import android.content.Context;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import java.sql.SQLException;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-
-import java.sql.SQLException;
-
 import vn.icar.rim.device.DBFactory;
 import vn.icar.rim.device.entitiy.ButtonInfo;
 import vn.icar.rim.view.ButtonInfoView;
+import vn.icar.rim.view.ButtonInfoView_;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 @EBean
 public class ButtonInfoAdapter extends ArrayAdapter<ButtonInfo> {
@@ -24,8 +24,7 @@ public class ButtonInfoAdapter extends ArrayAdapter<ButtonInfo> {
 
     @RootContext Context context;
 
-    @Bean
-    DBFactory dbFactory;
+    @Bean DBFactory dbFactory;
 
     public ButtonInfoAdapter(Context context) {
 
@@ -52,8 +51,7 @@ public class ButtonInfoAdapter extends ArrayAdapter<ButtonInfo> {
     public View getView(int position, View view, ViewGroup parent) {
 
         if (view == null) {
-//            view = ButtonInfoView.build(context);
-            view = new ButtonInfoView(context);
+            view = ButtonInfoView_.build(context);
         }
 
         ((ButtonInfoView) view).setButton(getItem(position));

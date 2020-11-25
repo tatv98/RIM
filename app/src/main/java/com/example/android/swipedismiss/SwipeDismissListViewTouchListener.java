@@ -6,6 +6,7 @@
 
 package com.example.android.swipedismiss;
 
+import lombok.val;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -38,12 +39,12 @@ import android.widget.ListView;
  * <p>
  * Example usage:
  * </p>
- * 
+ *
  * <pre>
  * SwipeDismissListViewTouchListener touchListener = new SwipeDismissListViewTouchListener(listView, new SwipeDismissListViewTouchListener.OnDismissCallback() {
- * 
+ *
  *     public void onDismiss(ListView listView, int[] reverseSortedPositions) {
- * 
+ *
  *         for (int position : reverseSortedPositions) {
  *             adapter.remove(adapter.getItem(position));
  *         }
@@ -61,7 +62,7 @@ import android.widget.ListView;
  * For a generalized {@link View.OnTouchListener} that makes any view
  * dismissable, see {@link SwipeDismissTouchListener}.
  * </p>
- * 
+ *
  * @see SwipeDismissTouchListener
  */
 public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
@@ -96,10 +97,10 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         /**
          * Called when the user has indicated they she would like to dismiss one
          * or more list item positions.
-         * 
+         *
          * @param listView
          *            The originating {@link ListView}.
-         * @param position
+         * @param reverseSortedPositions
          *            An array of positions to dismiss, sorted in descending
          *            order for convenience.
          */
@@ -108,7 +109,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
     /**
      * Constructs a new swipe-to-dismiss touch listener for the given list view.
-     * 
+     *
      * @param listView
      *            The list view whose items should be dismissable.
      * @param callbacks
@@ -130,7 +131,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     /**
      * Enables or disables (pauses or resumes) watching for swipe-to-dismiss
      * gestures.
-     * 
+     *
      * @param enabled
      *            Whether or not to watch for gestures.
      */
@@ -147,7 +148,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
      * changes through to this listener. This will ensure that this
      * {@link SwipeDismissListViewTouchListener} is paused during list view
      * scrolling.</p>
-     * 
+     *
      * @see SwipeDismissListViewTouchListener
      */
     public AbsListView.OnScrollListener makeScrollListener() {

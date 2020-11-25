@@ -1,13 +1,12 @@
 package vn.icar.rim.device.actions.executors;
 
-
-import android.content.Context;
-import android.widget.Toast;
-
 import net.dinglisch.android.tasker.TaskerIntent;
 import net.dinglisch.android.tasker.TaskerIntent.Status;
 
 import vn.icar.rim.device.actions.CommandType;
+
+import android.content.Context;
+import android.widget.Toast;
 
 public class TaskExecutor extends ActionExecutor {
 

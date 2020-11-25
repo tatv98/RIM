@@ -1,11 +1,10 @@
 package vn.icar.rim.device.actions.executors;
 
+import vn.icar.rim.device.actions.CommandType;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
-import vn.icar.rim.device.actions.CommandType;
 
 public class AppExecutor extends ActionExecutor {
 

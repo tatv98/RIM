@@ -1,5 +1,13 @@
 package vn.icar.rim.device;
 
+import java.sql.SQLException;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+import vn.icar.rim.device.entitiy.ActionInfo;
+import vn.icar.rim.device.entitiy.ButtonInfo;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -9,21 +17,12 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
-
-import java.sql.SQLException;
-
-import vn.icar.rim.device.entitiy.ActionInfo;
-import vn.icar.rim.device.entitiy.ButtonInfo;
-
 @EBean
 public class DBFactory {
 
     private static final String TAG = DBFactory.class.getSimpleName();
 
-    private static final String DATABASE_NAME = "vn.icar.rim.db";
+    private static final String DATABASE_NAME = "vn.icar.rbm.db";
     private static final int DATABASE_VERSION = 1;
 
     private Dao<ButtonInfo, Long> buttonDao = null;
